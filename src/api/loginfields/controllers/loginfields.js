@@ -3,7 +3,7 @@
 module.exports = {
   async getFields(ctx) {
     try {
-      const fields = ["identifier", "password"];
+      const fields = ["username", "password"]; 
       ctx.body = {
         fields: fields,
       };
