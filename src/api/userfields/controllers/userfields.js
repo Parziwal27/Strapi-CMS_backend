@@ -3,7 +3,7 @@
 module.exports = {
   async getFields(ctx) {
     try {
-      const fields = ["username", "email", "password", "age"];
+      const fields = ["username", "email", "password", "age", "provider"];
       const userFields = await strapi
         .query("plugin::users-permissions.user")
         .findMany({
