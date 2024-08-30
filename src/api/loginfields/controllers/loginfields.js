@@ -3,7 +3,7 @@
 module.exports = {
   async getFields(ctx) {
     try {
-      const fields = ["username", "password"]; 
+      const fields = ["identifier", "password"]; 
       ctx.body = {
         fields: fields,
       };
@@ -15,22 +15,22 @@ module.exports = {
 
   async validateUserFields(ctx) {
     try {
-      const { username, password, email } = ctx.request.body;
+      const { identifier, password, email } = ctx.request.body;
 
-      console.log("Received request body:", { username, password, email });
+      console.log("Received request body:", { identifier, password, email });
 
       // Check if required fields are provided
-      if (!username || !password) {
+      if (!identifier || !password) {
         ctx.status = 400;
         ctx.body = { error: "Missing required fields" };
         return;
       }
 
-      // Find the user by username
+      // Find the user by identifier
       const user = await strapi
         .query("plugin::users-permissions.user")
         .findOne({
-          where: { username: username },
+          where: { username: identifier },
         });
 
       console.log("Found user:", user);
