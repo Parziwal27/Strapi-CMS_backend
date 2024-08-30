@@ -3,7 +3,7 @@
 module.exports = {
   async getFields(ctx) {
     try {
-      const fields = ["identifier", "email", "password"];
+      const fields = ["identifier", "password"];
       ctx.body = {
         fields: fields,
       };
@@ -15,12 +15,12 @@ module.exports = {
 
   async validateUserFields(ctx) {
     try {
-      const { identifier, email, password } = ctx.request.body;
+      const { identifier, password, email } = ctx.request.body;
 
-      console.log("Received request body:", { identifier, email, password });
+      console.log("Received request body:", { identifier, password, email });
 
-      // Check if all required fields are provided
-      if (!identifier || !email || !password) {
+      // Check if required fields are provided
+      if (!identifier || !password) {
         ctx.status = 400;
         ctx.body = { error: "Missing required fields" };
         return;
@@ -42,8 +42,8 @@ module.exports = {
         return;
       }
 
-      // Check if email matches
-      if (user.email !== email) {
+      // Check email only if it's provided in the request
+      if (email && user.email !== email) {
         ctx.status = 400;
         ctx.body = { error: "Email does not match" };
         return;
